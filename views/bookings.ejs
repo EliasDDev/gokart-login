@@ -8,13 +8,14 @@
 </head>
 
 <body>
-    <h1>Gokarts bokningar (admin):</h1>
+    <h1>Schema (admin):</h1>
     <table border="1">
         <thead>
             <tr>
-                <th>Customer</th>
-                <th>Date</th>
-                <th>Time</th>
+                <th>Namn</th>
+                <th>Email</th>
+                <th>Datum</th>
+                <th>Tid</th>
                 <th>-</th>
             </tr>
         </thead>
@@ -22,7 +23,10 @@
             <% bookings.forEach(item=> { %>
                 <tr>
                     <td>
-                        <%= item.customer_id %>
+                        <%= item.name %>
+                    </td>
+                    <td>
+                        <%= item.email %>
                     </td>
                     <td>
                         <%= item.date %>

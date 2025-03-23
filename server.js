@@ -37,13 +37,25 @@ function isAuthenticated(req, res, next) {
 }
 
 app.get("/bookings", isAuthenticated, (req, res) => {
-    connection.query("SELECT * FROM app_booking", (err, rows) => {
+    const sql = `SELECT app_booking.id, app_customer.name, app_customer.email, app_booking.date, app_booking.time 
+    FROM app_booking 
+    INNER JOIN app_customer 
+    ON app_booking.customer_id = app_customer.id`;
+
+    connection.query(sql, (err, rows) => {
         if (err) throw err;
+
+        // Sort by date and time
+        rows.sort((a, b) => {
+            const dateTimeA = new Date(a.date.toISOString().split('T')[0] + 'T' + a.time);
+            const dateTimeB = new Date(b.date.toISOString().split('T')[0] + 'T' + b.time);
+            return dateTimeA - dateTimeB;
+          });
         res.render("bookings", { bookings: rows });
     })
 })
 
-app.post("/cancel-booking", isAuthenticated, (req, res) => {
+app.delete("/cancel-booking", isAuthenticated, (req, res) => {
     const booking_id = req.body.booking_id;
     console.log(`Avbokar tiden med ID ${booking_id}`);
     connection.query('DELETE FROM app_booking WHERE id = ?', booking_id, (err, result) => {
