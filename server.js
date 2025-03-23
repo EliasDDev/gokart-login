@@ -53,8 +53,8 @@ app.post("/cancel-booking", isAuthenticated, (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    const name = req.body.username;
-    connection.query('SELECT username FROM auth_user WHERE username = ?', [name], (err, rows) => {
+    const name = req.body.admin_code;
+    connection.query('SELECT admin_code FROM admin_users WHERE admin_code = ?', [name], (err, rows) => {
         if (err) throw err;
 
         if (rows.length > 0) {
