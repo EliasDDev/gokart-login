@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Gokarts bokningar (admin):</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>-</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% bookings.forEach(item=> { %>
+                <tr>
+                    <td>
+                        <%= item.customer_id %>
+                    </td>
+                    <td>
+                        <%= item.date %>
+                    </td>
+                    <td>
+                        <%= item.time %>
+                    </td>
+                    <td>
+                        <form method="POST" action="/cancel-booking">
+                            <input type="hidden" name="booking_id" value="<%= item.id %>">
+                            <button type="submit">Avboka</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+</body>
+
+</html>
