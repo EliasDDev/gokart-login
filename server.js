@@ -55,7 +55,7 @@ app.get("/bookings", isAuthenticated, (req, res) => {
     })
 })
 
-app.delete("/cancel-booking", isAuthenticated, (req, res) => {
+app.post("/cancel-booking", isAuthenticated, (req, res) => {
     const booking_id = req.body.booking_id;
     console.log(`Avbokar tiden med ID ${booking_id}`);
     connection.query('DELETE FROM app_booking WHERE id = ?', booking_id, (err, result) => {
